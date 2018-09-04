@@ -8,7 +8,7 @@
             "name": "Debug",
             "type": "node",
             "protocol": "auto",
-            "program": "${workspaceFolder}/test1",
+            "program": "${workspaceFolder}/test2",
             "autoAttachChildProcesses": false,
             "env": {
                 "NODE_ENV": "development"

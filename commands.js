@@ -103,9 +103,9 @@ module.exports = {
       return lastResult;
     }
 
-    browser.addCommand("shadowElement", (selector, multiple) => {
+    browser.addCommand("shadowElement", function (selector, multiple) {
       const baseElement = getLastResult.apply(this);
-      return browser
+      return this
         .execute(shadowElement, selector, multiple === true, baseElement)
         .then((result) => {
           const myResult = Object.assign({}, result, { selector: selector });
@@ -125,7 +125,12 @@ module.exports = {
     });
 
     if (overwrite) {
-      browser.addCommand("element", s => browser.shadowElement(s), true);
+    console.log(browser.element.toString());
+      browser.addCommand("element", function (s) {
+           return this.shadowElement(s);
+      }, true);
+      console.log(browser.element.toString());
+
       browser.addCommand("elements", s => browser.shadowElement(s, true), true);
     }
 

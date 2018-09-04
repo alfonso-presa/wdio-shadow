@@ -4,17 +4,20 @@ const expect = require('chai').expect;
 
 const options = { desiredCapabilities: { browserName: 'chrome' } };
 const browser = commands.init.call(this, wdio.remote(options).init(), true);
- 
+
 browser
   .url('https://shop.polymer-project.org/')
 //  .timeouts('implicit', 5000)
 //  .element('not-exists')
 //    .click()
-  .click('div:nth-child(2) > shop-button')
+  .shadowElement('div:nth-child(2) > shop-button')
+    .click()
   .waitUntil(() => browser.isVisible('shop-list-item'), 5000)
-  .click('shop-list-item')
+  .element('shop-list-item')
+    .click()
   .element('shop-detail')
-    .then(r => browser.execute(elem => elem.item.title, r.value))
+    .getText()
+    //.then(r => browser.execute(elem => elem.item.title, r.value))
     .then(r => console.log(`Product Title: ${r.value}`))
   .element('shop-detail')
     .then(r => browser.execute(elem => elem._addToCart(), r.value))
